@@ -1,0 +1,74 @@
+# AI Developer Co-Pilot - Project Overview
+
+## 1. Project Description
+An AI-powered developer co-pilot that converts natural language instructions into production-ready code. It features a React-based frontend with a Monaco Editor for code visualization and a Node.js/Express backend that currently mocks an AI service (expandable to OpenAI).
+
+## 2. Technology Stack
+- **Frontend**: React (Vite), Tailwind CSS v4, Monaco Editor, Lucide React, Axios.
+- **Backend**: Node.js, Express.js, CORS, Dotenv.
+- **Architecture**: Monorepo (client/server), MVC Pattern, REST API.
+
+## 3. Directory Structure
+/Copilot Project
+  /server
+    /controllers (aiController.js)
+    /routes (aiRoutes.js)
+    /services (gptService.js)
+    index.js
+    package.json
+  /client
+    /src
+      /components (ChatPanel.jsx, CodeEditor.jsx)
+      /services (api.js)
+      App.jsx
+      main.jsx
+    package.json
+    vite.config.js
+
+## 4. Key Source Code
+
+### Backend Entry (server/index.js)
+```javascript
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const aiRoutes = require('./routes/aiRoutes');
+
+dotenv.config();
+const app = express();
+const PORT = 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use('/api/ai', aiRoutes); // Routes for AI generation
+
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+```
+
+### AI Service Mock (server/services/gptService.js)
+```javascript
+exports.generate = async (prompt, language, framework) => {
+    // Simulates AI generation based on keywords
+    if (prompt.includes('server')) { ... return Express code ... }
+    if (prompt.includes('react')) { ... return React code ... }
+    // ...
+};
+```
+
+### Frontend App (client/src/App.jsx)
+```javascript
+// Orchestrates ChatPanel and CodeEditor
+// Calls generateCode() from services/api.js
+// Updates state to show generated code in Monaco Editor
+```
+
+### Frontend Config (client/vite.config.js)
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
+```

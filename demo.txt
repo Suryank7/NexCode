@@ -1,0 +1,52 @@
+# AI Co-Pilot Demo Instructions
+
+## 1. Prerequisites
+- Node.js installed (v18+ recommended)
+- Git (optional)
+
+## 2. Installation & Startup
+
+**Step 1: Start the Backend Server**
+Open a terminal and run:
+```bash
+cd server
+npm install
+npm start
+```
+*Expected Output:* `Server is running on port 3000`
+
+**Step 2: Start the Frontend Application**
+Open a *new* terminal and run:
+```bash
+cd client
+npm install
+npm run dev
+```
+*Expected Output:* `➜  Local:   http://localhost:5173/`
+
+## 3. Demo Flow
+
+**Scenario A: Generating a Server**
+1. Open browser to `http://localhost:5173`.
+2. In the chat panel (left), type:
+   > "Create a simple Express server"
+3. Press **Enter** or click the **Send** button.
+4. **Observe**: The loading spinner appears, then the editor (right) fills with Node.js code.
+
+**Scenario B: Generating a UI Component**
+1. Clear the chat or just type a new prompt:
+   > "Build a React Counter component"
+2. Click **Send**.
+3. **Observe**: The editor updates with a functional React component code snippet.
+
+**Scenario C: explaining Code**
+1. With code present in the editor (from previous step), click the **"Explain Code"** button (top right of editor).
+2. **Observe**: A panel slides in from the right with a text explanation of what the code does.
+
+## 4. How It Works
+1. **Input**: User types natural language in React frontend.
+2. **Request**: Frontend sends POST request to `http://localhost:3000/api/ai/generate`.
+3. **Processing**: Backend `aiController` receives request, calls `gptService`.
+4. **Mock AI**: `gptService` uses keyword matching (e.g., "server", "react") to select a pre-defined template (Mocking a real GPT call).
+5. **Response**: JSON containing the code string is returned.
+6. **Display**: Frontend updates the Monaco Editor state with the received string.
